@@ -12,7 +12,7 @@ const User = props => {
         <img
           className="user__img"
           src={user.avatar_url}
-          alt="Github user image"
+          alt="Github user profile"
         />
         <figcaption className="user__caption">{user.login}</figcaption>
       </figure>
@@ -21,10 +21,14 @@ const User = props => {
           <a href={user.html_url}>{user.login}</a>
         </h3>
         <ul className="list">
-          <li className="list__item">Close to the beach</li>
-          <li className="list__item">Breakfast included</li>
-          <li className="list__item">Free airport shuttle</li>
-          <li className="list__item">Free wifi in all rooms</li>
+          <li className="list__item">Followers</li>
+          <li className="list__item">
+            <a href={user.followers_url}>See followers</a>
+          </li>
+          <li className="list__item">Following</li>
+          <li className="list__item">
+            <a href={user.following_url}>See following</a>
+          </li>
         </ul>
       </div>
     </div>

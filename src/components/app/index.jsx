@@ -4,7 +4,7 @@ import './style.css';
 
 import Search from '../search';
 import github from '../../api/github';
-import User from '../user';
+import UserList from '../users-list';
 
 const PER_PAGE = 10; // number of search results per page
 
@@ -70,7 +70,7 @@ class App extends React.Component {
             <h2>Found {this.state.totalNumberOfUsers} GitHub users </h2>
           )}
 
-          <User user={this.state.usersPerPage} />
+          <UserList users={this.state.usersPerPage} />
         </div>
       </div>
     );
