@@ -1,5 +1,5 @@
 :root{
-    --color-grey-light-2: #f4f2f2;
+    --color-white-light-opaque: rgba(255, 255, 255, 0.6);
     --line: 1px solid var(--color-grey-light-2);
 }
 
@@ -7,7 +7,7 @@
     width: 75%;
     margin: 0 auto;
     box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: var(--color-white-light-opaque);
     border-radius: 3px;
     padding: 2rem;
     padding-left: 9rem;

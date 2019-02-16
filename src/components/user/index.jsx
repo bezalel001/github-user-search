@@ -35,8 +35,8 @@ const User = props => {
   );
 };
 
-User.propsTypes = {
-  user: PropTypes.object
+User.propTypes = {
+  user: PropTypes.instanceOf(User).isRequired
 };
 
 export default User;
