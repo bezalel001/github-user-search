@@ -20,13 +20,13 @@ const User = props => {
         <h3>
           <a href={user.html_url}>{user.login}</a>
         </h3>
-        <ul className="list">
-          <li className="list__item">Followers</li>
-          <li className="list__item">
+        <ul className="user__detail">
+          <li className="user-detail-item">Followers</li>
+          <li className="user__detail-item">
             <a href={user.followers_url}>See followers</a>
           </li>
-          <li className="list__item">Following</li>
-          <li className="list__item">
+          <li className="user__detail-item">Following</li>
+          <li className="user__detail-item">
             <a href={user.following_url}>See following</a>
           </li>
         </ul>
