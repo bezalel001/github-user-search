@@ -10,7 +10,7 @@ module.exports = {
     },
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
         },
         "ecmaVersion": 2018,
         "sourceType": "module"
@@ -20,6 +20,6 @@ module.exports = {
         "prettier"
     ],
     "rules": {
-        
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 };
