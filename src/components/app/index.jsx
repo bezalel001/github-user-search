@@ -4,6 +4,7 @@ import './style.css';
 
 import Search from '../search';
 import github from '../../api/github';
+import User from '../user';
 
 const PER_PAGE = 10; // number of search results per page
 
@@ -33,6 +34,8 @@ class App extends React.Component {
       const totalNumberOfUsers = await response.data.total_count;
       const usersPerPage = await response.data.items;
       const link = await response.headers.link;
+
+      console.log(`User per page: ${usersPerPage}`);
 
       // extract the last page number from the link header
       if (this.state.currentPage === 1 && link) {
@@ -66,6 +69,8 @@ class App extends React.Component {
             // eslint-disable-next-line react/jsx-one-expression-per-line
             <h2>Found {this.state.totalNumberOfUsers} GitHub users </h2>
           )}
+
+          <User user={this.state.usersPerPage} />
         </div>
       </div>
     );
