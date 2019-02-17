@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 
 import './style.css';
@@ -35,8 +37,8 @@ class App extends React.Component {
 
   onPageChanged = data => {
     const { currentPage, totalPages, pageLimit } = data;
-
-    this.onSearchSubmit(this.state.term, currentPage, pageLimit);
+    const { term } = this.state;
+    this.onSearchSubmit(term, currentPage, pageLimit);
 
     this.setState({ currentPage, totalPages });
   };
@@ -54,7 +56,7 @@ class App extends React.Component {
           {users.length > 0 && (
             // eslint-disable-next-line react/jsx-one-expression-per-line
             <h2 className="users-found">
-              Found {totalNumberOfUsers} GitHub users{' '}
+              Found {totalNumberOfUsers} GitHub users
             </h2>
           )}
 

@@ -9,9 +9,9 @@ class User extends React.Component {
 
   async componentDidMount() {
     try {
-      const response = await github.get(`${this.props.user.url}`);
+      const { user } = this.props;
+      const response = await github.get(`${user.url}`);
       await this.setState({ user: response.data });
-      console.log(this.state.user);
     } catch (error) {
       console.error(error);
     }
@@ -37,7 +37,7 @@ class User extends React.Component {
               <p className="user__company-name">{user.company}</p>
               <p className="user__user-location">{user.location}</p>
             </div>
-            <div className="user__followers">{user.followers} followers                        </div>
+            <div className="user__followers">{user.followers} followers                         </div>
           </figcaption>
         </figure>
       </div>
@@ -46,7 +46,6 @@ class User extends React.Component {
 }
 
 User.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   user: PropTypes.object.isRequired
 };
 

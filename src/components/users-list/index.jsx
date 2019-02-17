@@ -4,10 +4,11 @@ import './style.css';
 import User from '../user';
 
 const UsersList = props => {
-  const users = props.users.map(user => {
+  const { users } = props;
+  const currentUsers = users.map(user => {
     return <User user={user} key={user.id} />;
   });
-  return <div className="users">{users}</div>;
+  return <div className="users">{currentUsers}</div>;
 };
 
 UsersList.propTypes = {
