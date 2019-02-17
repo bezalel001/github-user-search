@@ -2,38 +2,48 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './style.css';
+import github from '../../api/github';
 
-const User = props => {
-  const { user } = props;
+class User extends React.Component {
+  state = { user: '' };
 
-  return (
-    <div className="user">
-      <figure className="user__shape">
-        <img
-          className="user__img"
-          src={user.avatar_url}
-          alt="Github user profile"
-        />
-        <figcaption className="user__caption">{user.login}</figcaption>
-      </figure>
-      <div className="user__text">
-        <h3>
-          <a href={user.html_url}>{user.login}</a>
-        </h3>
-        <ul className="user__detail">
-          <li className="user__detail-item">Followers</li>
-          <li className="user__detail-item">
-            <a href={user.followers_url}>See followers</a>
-          </li>
-          <li className="user__detail-item">Following</li>
-          <li className="user__detail-item">
-            <a href={user.following_url}>See following</a>
-          </li>
-        </ul>
+  async componentDidMount() {
+    try {
+      const response = await github.get(`${this.props.user.url}`);
+      await this.setState({ user: response.data });
+      console.log(this.state.user);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  render() {
+    const { user } = this.state;
+    return (
+      <div className="user">
+        <figure className="user__info">
+          <p className="user__text">{user.bio}</p>
+          <p className="user__username">
+            <a href={user.html_url}>{user.login}</a>
+          </p>
+          <figcaption className="user__user">
+            <a href={user.html_url}>
+              <img src={user.avatar_url} alt="avatar" className="user__photo" />
+            </a>
+            <div className="user__user-box">
+              <p className="user__name">
+                <a href={user.html_url}>{user.name}</a>
+              </p>
+              <p className="user__company-name">{user.company}</p>
+              <p className="user__user-location">{user.location}</p>
+            </div>
+            <div className="user__followers">{user.followers} followers                        </div>
+          </figcaption>
+        </figure>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 User.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
