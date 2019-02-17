@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import './style.css';
 import User from '../user';
 
 const UsersList = props => {
   const users = props.users.map(user => {
     return <User user={user} key={user.id} />;
   });
-  return <div>{users}</div>;
+  return <div className="users">{users}</div>;
 };
 
 UsersList.propTypes = {

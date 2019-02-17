@@ -21,7 +21,7 @@ const User = props => {
           <a href={user.html_url}>{user.login}</a>
         </h3>
         <ul className="user__detail">
-          <li className="user-detail-item">Followers</li>
+          <li className="user__detail-item">Followers</li>
           <li className="user__detail-item">
             <a href={user.followers_url}>See followers</a>
           </li>
@@ -36,7 +36,8 @@ const User = props => {
 };
 
 User.propTypes = {
-  user: PropTypes.instanceOf(User).isRequired
+  // eslint-disable-next-line react/forbid-prop-types
+  user: PropTypes.object.isRequired
 };
 
 export default User;

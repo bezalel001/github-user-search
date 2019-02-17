@@ -1,110 +1,28 @@
-.btn, .btn:link, .btn:visited {
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1.5rem 4rem;
-    display: inline-block;
-    border-radius: 10rem;
-    transition: all .2s;
-    position: relative;
-    font-size: 1.6rem;
-    border: none;
-    cursor: pointer; }
-  
-  .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
-    .btn:hover::after {
-      transform: scaleX(1.4) scaleY(1.6);
-      opacity: 0; }
-  
-  .btn:active, .btn:focus {
-    outline: none;
-    transform: translateY(-1px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
-  
-  .btn--white {
-    background-color: #fff;
-    color: #777; }
-    .btn--white::after {
-      background-color: #fff; }
-  
-  .btn--green {
-    background-color: #55c57a;
-    color: #fff; }
-    .btn--green::after {
-      background-color: #55c57a; }
-  
-  .btn::after {
-    content: "";
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    border-radius: 10rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transition: all .4s; }
-  
-  .btn--animated {
-    animation: moveInBottom .5s ease-out .75s;
-    animation-fill-mode: backwards; }
-  
-  .btn-text:link, .btn-text:visited {
-    font-size: 1.6rem;
-    color: #55c57a;
-    display: inline-block;
-    text-decoration: none;
-    border-bottom: 1px solid #55c57a;
-    padding: 3px;
-    transition: all .2s; }
-  
-  .btn-text:hover {
-    background-color: #55c57a;
-    color: #fff;
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px); }
-  
-  .btn-text:active {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    transform: translateY(0); }
 
-@keyframes moveInBottom {
-    0% {
-        opacity: 0;
-        transform: translateY(3rem); }
-    100% {
-        opacity: 1;
-        transform: translate(0); } 
-    }
 
 .search {
     margin-top: 2rem;
 }
 .search__form {
     display: flex;
-    justify-content: space-around;    
+    justify-content: space-around;
+    flex-direction: column;
+   
 }
-
-
-.search__form > * {
-    flex: 2 1 auto;
-}
-
     
 .search__form-input {
-    flex-basis: 100%;
-    flex-grow: 2;
+    flex-shrink: 0;
     font-size: 1.5rem;
     font-family: inherit;
     color: inherit;
     padding: 1.5rem 2rem;
     border-radius: 2px;
-    background-color: rbga(#fff, 0.5);
+    background-color: rgba(#fff, 0.5);
     border: none;
     border-bottom: 3px solid transparent;
     border-radius: 100px;
-    width: 100%;
+    width: 50%;
+    margin-right: 5rem;
  
     transition: all .3s; }
     
@@ -130,3 +48,86 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4rem); }
+
+
+.btn, .btn:link, .btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 10rem;
+  transition: all .2s;
+  position: relative;
+  font-size: 1.6rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 5rem;
+  }
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+  .btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0; }
+
+.btn:active, .btn:focus {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+
+.btn--white {
+  background-color: #fff;
+  color: #777; }
+  .btn--white::after {
+    background-color: #fff; }
+
+.btn--green {
+  background-color: #55c57a;
+  color: #fff; }
+  .btn--green::after {
+    background-color: #55c57a; }
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s; }
+
+.btn--animated {
+  animation: moveInBottom .5s ease-out .75s;
+  animation-fill-mode: backwards; }
+
+.btn-text:link, .btn-text:visited {
+  font-size: 1.6rem;
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #55c57a;
+  padding: 3px;
+  transition: all .2s; }
+
+.btn-text:hover {
+  background-color: #55c57a;
+  color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px); }
+
+.btn-text:active {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(0); }
+
+  @keyframes moveInBottom {
+      0% {
+          opacity: 0;
+          transform: translateY(3rem); }
+      100% {
+          opacity: 1;
+          transform: translate(0); } 
+      }

@@ -1,0 +1,27 @@
+
+.pagination {
+    display: flex;
+    margin: 5rem auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+   
+  }
+  .pagination__page-item.active .pagination__page-link {
+    color: #777 !important;
+    background-color: #55c57a !important;
+    border-color: #55c57a !important;
+  }
+  .pagination__page-link {
+    padding: 0.75rem 1rem;
+    width: 7rem;
+    text-align: center;
+    box-shadow: none !important;
+    border-color: #55c57a !important;
+    color: #6b88a4;
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+  .pagination__page-link:hover {
+    background-color: #ccc;
+  }
+  

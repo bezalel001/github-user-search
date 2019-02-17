@@ -10,8 +10,11 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-
 }
+
+.users-found {
+    margin-bottom: 4rem;
+} 
   
   
   

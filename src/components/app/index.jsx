@@ -5,59 +5,45 @@ import './style.css';
 import Search from '../search';
 import github from '../../api/github';
 import UserList from '../users-list';
-
-const PER_PAGE = 10; // number of search results per page
+import Pagination from '../pagination';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    totalNumberOfUsers: null,
+    users: [],
+    currentPage: null,
+    totalPages: null,
+    pageLimit: 10,
+    pageNeighbours: 1
+  };
 
-    this.state = {
-      searchTerm: '',
-      totalNumberOfUsers: 0,
-      usersPerPage: [],
-      currentPage: 1,
-      lastPageNumber: 1,
-      link: ''
-    };
-  }
-
-  onSearchSubmit = async searchTerm => {
+  onSearchSubmit = async (term, page = 1, pageLimit = 10) => {
     try {
       const response = await github.get('/search/users', {
-        params: {
-          q: searchTerm,
-          page: this.state.currentPage,
-          per_page: PER_PAGE
-        }
+        params: { q: term, page, per_page: pageLimit }
       });
-      const totalNumberOfUsers = await response.data.total_count;
-      const usersPerPage = await response.data.items;
-      const link = await response.headers.link;
-
-      console.log(`User per page: ${usersPerPage}`);
-
-      // extract the last page number from the link header
-      if (this.state.currentPage === 1 && link) {
-        const pages = link.split(' ');
-        console.log(`pages: ${pages}`);
-        const lastPage = pages[pages.length - 2];
-        console.log(`Last page: ${lastPage}`);
-        const lastPageUrl = lastPage.substring(1, lastPage.length - 2);
-        console.log(`Last page url: ${lastPageUrl}`);
-        console.log(`Last page url split: ${lastPageUrl.split('&')[1]}`);
-        const lastPageNumber = lastPageUrl.split('&')[1].substring(5);
-        console.log(`Last page number: ${lastPageNumber}`);
-        this.setState({ lastPageNumber });
-      }
-
-      this.setState({ searchTerm, totalNumberOfUsers, usersPerPage, link });
+      await this.setState({
+        totalNumberOfUsers: response.data.total_count,
+        users: response.data.items,
+        term,
+        currentPage: page
+      });
     } catch (error) {
-      console.error(error);
+      console.error(`Error in Search: ${error}`);
     }
   };
 
+  onPageChanged = data => {
+    const { currentPage, totalPages, pageLimit } = data;
+
+    this.onSearchSubmit(this.state.term, currentPage, pageLimit);
+
+    this.setState({ currentPage, totalPages });
+  };
+
   render() {
+    const { totalNumberOfUsers, users, pageLimit, pageNeighbours } = this.state;
+
     return (
       <div className="container-fluid">
         <div className="app">
@@ -65,15 +51,27 @@ class App extends React.Component {
             <h1 className="header__header-title">GitHub User Search</h1>
           </header>
           <Search onSubmit={this.onSearchSubmit} />
-          {this.state.usersPerPage.length && (
+          {users.length > 0 && (
             // eslint-disable-next-line react/jsx-one-expression-per-line
-            <h2>Found {this.state.totalNumberOfUsers} GitHub users </h2>
+            <h2 className="users-found">
+              Found {totalNumberOfUsers} GitHub users{' '}
+            </h2>
           )}
 
-          <UserList users={this.state.usersPerPage} />
+          <UserList users={users} />
+
+          {totalNumberOfUsers && (
+            <Pagination
+              totalRecords={totalNumberOfUsers}
+              pageLimit={pageLimit}
+              pageNeighbours={pageNeighbours}
+              onPageChanged={this.onPageChanged}
+            />
+          )}
         </div>
       </div>
     );
   }
 }
+
 export default App;
