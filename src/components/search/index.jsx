@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './style.css';
+import "./style.css";
 
 class Search extends React.Component {
   static propTypes = {
@@ -13,7 +13,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { searchTerm: '' };
+    this.state = { searchTerm: "" };
   }
 
   onFormSubmit = event => {
@@ -42,14 +42,12 @@ class Search extends React.Component {
               onChange={e => this.setState({ searchTerm: e.target.value })}
             />
             <label htmlFor="username" className="search__form-label">
-              Please enter your GitHub username
+              Please enter a GitHub username
             </label>
           </div>
 
           <div className="search__form-control">
-            <button type="button" className="btn btn--green">
-              Find User
-            </button>
+            <input type="submit" className="btn btn--green" value="Find User" />
           </div>
         </form>
       </div>
