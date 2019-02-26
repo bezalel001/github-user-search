@@ -5,7 +5,7 @@ import "./style.css";
 import github from "../../api/github";
 
 class User extends React.Component {
-  state = { user: "" };
+  state = { user: "", error: null };
 
   async componentDidMount() {
     try {
@@ -13,12 +13,17 @@ class User extends React.Component {
       const response = await github.get(`${user.url}`);
       await this.setState({ user: response.data });
     } catch (error) {
-      console.error(error);
+      this.setState({ error });
     }
   }
 
   render() {
-    const { user } = this.state;
+    const { user, error } = this.state;
+
+    if (error) {
+      return <div className="error">{this.error}</div>;
+    }
+
     return (
       <div className="user">
         <figure className="user__info">

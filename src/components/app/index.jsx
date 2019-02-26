@@ -1,13 +1,11 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React from "react";
 
-import './style.css';
+import "./style.css";
 
-import Search from '../search';
-import github from '../../api/github';
-import UserList from '../users-list';
-import Pagination from '../pagination';
+import Search from "../search";
+import github from "../../api/github";
+import UserList from "../users-list";
+import Pagination from "../pagination";
 
 class App extends React.Component {
   state = {
@@ -16,12 +14,13 @@ class App extends React.Component {
     currentPage: null,
     totalPages: null,
     pageLimit: 10,
-    pageNeighbours: 1
+    pageNeighbours: 1,
+    error: null
   };
 
   onSearchSubmit = async (term, page = 1, pageLimit = 10) => {
     try {
-      const response = await github.get('/search/users', {
+      const response = await github.get("/search/users", {
         params: { q: term, page, per_page: pageLimit }
       });
       await this.setState({
@@ -31,7 +30,7 @@ class App extends React.Component {
         currentPage: page
       });
     } catch (error) {
-      console.error(`Error in Search: ${error}`);
+      this.setState({ error });
     }
   };
 
@@ -44,7 +43,17 @@ class App extends React.Component {
   };
 
   render() {
-    const { totalNumberOfUsers, users, pageLimit, pageNeighbours } = this.state;
+    const {
+      totalNumberOfUsers,
+      users,
+      pageLimit,
+      pageNeighbours,
+      error
+    } = this.state;
+
+    if (error) {
+      return <div className="error">{error}</div>;
+    }
 
     return (
       <div className="container-fluid">
@@ -56,8 +65,12 @@ class App extends React.Component {
           {users.length > 0 && (
             // eslint-disable-next-line react/jsx-one-expression-per-line
             <h2 className="users-found">
-              Found {totalNumberOfUsers} GitHub users
-            </h2>
+              Found 
+{' '}
+{totalNumberOfUsers}
+{' '}
+GitHub users
+</h2>
           )}
 
           <UserList users={users} />
