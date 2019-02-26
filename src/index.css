@@ -24,3 +24,10 @@ body {
   color: #333; 
   background-color: #ccc;
 }
+
+.error {
+  width: 100%;
+  margin: 40px 0;
+  text-align: center;
+  color: #d64d96;
+}

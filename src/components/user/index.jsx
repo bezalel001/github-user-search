@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './style.css';
-import github from '../../api/github';
+import "./style.css";
+import github from "../../api/github";
 
 class User extends React.Component {
-  state = { user: '' };
+  state = { user: "" };
 
   async componentDidMount() {
     try {
