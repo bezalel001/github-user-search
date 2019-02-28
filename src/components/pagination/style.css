@@ -24,4 +24,9 @@
   .pagination__page-link:hover {
     background-color: #ccc;
   }
+  button:focus,
+  select:focus {
+    outline: none;
+  }
+
   
