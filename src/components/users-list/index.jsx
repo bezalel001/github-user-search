@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './style.css';
-import User from '../user';
+import React from "react";
+import PropTypes from "prop-types";
+import "./style.css";
+import User from "../user";
 
 const UsersList = props => {
   const { users } = props;

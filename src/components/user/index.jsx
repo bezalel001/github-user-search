@@ -1,24 +1,52 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import axios from "axios";
+
 import "./style.css";
 import github from "../../api/github";
+import Loading from "../common/loading";
 
 class User extends React.Component {
-  state = { user: "", error: null };
+  cancelTokenSource = axios.CancelToken.source();
+
+  state = { user: "", error: null, loading: false };
 
   async componentDidMount() {
     try {
+      this.setState({ loading: true });
+
       const { user } = this.props;
-      const response = await github.get(`${user.url}`);
-      await this.setState({ user: response.data });
+      const response = await axios.get(`${user.url}`, {
+        cancelToken: this.cancelTokenSource.token
+      });
+
+      this.setState({ user: response.data, loading: false });
     } catch (error) {
-      this.setState({ error });
+      if (axios.isCancel(error)) {
+        console.log(`Axiox cancel error`);
+      } else {
+        this.setState({ error, loading: false });
+      }
+    } finally {
+      this.cancelTokenSource = null;
     }
   }
 
+  componentWillUnmount() {
+    this.cancelTokenSource && this.cancelTokenSource.cancel();
+  }
+
   render() {
-    const { user, error } = this.state;
+    const { user, error, loading } = this.state;
+
+    if (loading) {
+      return (
+        <div className="loading__container">
+          <Loading />
+        </div>
+      );
+    }
 
     if (error) {
       return <div className="error">{this.error}</div>;

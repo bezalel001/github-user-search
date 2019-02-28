@@ -2,12 +2,17 @@ import React from "react";
 
 import "./style.css";
 
+import axios from "axios";
+
 import Search from "../search";
 import github from "../../api/github";
 import UserList from "../users-list";
 import Pagination from "../pagination";
+import Loading from "../common/loading";
 
 class App extends React.Component {
+  signal = axios.CancelToken.source();
+
   state = {
     totalNumberOfUsers: null,
     users: [],
@@ -15,22 +20,38 @@ class App extends React.Component {
     totalPages: null,
     pageLimit: 10,
     pageNeighbours: 1,
-    error: null
+    error: null,
+    loading: false,
+    term: ""
   };
 
   onSearchSubmit = async (term, page = 1, pageLimit = 10) => {
     try {
+      this.setState({ term });
+
+      if (!term) {
+        return "";
+      }
+
+      this.setState({ loading: true });
+
       const response = await github.get("/search/users", {
-        params: { q: term, page, per_page: pageLimit }
+        params: { q: term, page, per_page: pageLimit },
+        cancelToken: this.signal.token
       });
-      await this.setState({
+      this.setState({
+        loading: false,
         totalNumberOfUsers: response.data.total_count,
         users: response.data.items,
-        term,
         currentPage: page
       });
+      return response;
     } catch (error) {
-      this.setState({ error });
+      if (axios.isCancel(error)) {
+        console.log(`Error in axios token`);
+      } else {
+        this.setState({ error: error.message });
+      }
     }
   };
 
@@ -39,7 +60,7 @@ class App extends React.Component {
     const { term } = this.state;
     this.onSearchSubmit(term, currentPage, pageLimit);
 
-    this.setState({ currentPage, totalPages });
+    this.setState({ currentPage, totalPages, loading: false });
   };
 
   render() {
@@ -48,9 +69,18 @@ class App extends React.Component {
       users,
       pageLimit,
       pageNeighbours,
-      error
+      error,
+      loading,
+      term
     } = this.state;
 
+    if (loading) {
+      return (
+        <div className="loading__container">
+          <Loading />
+        </div>
+      );
+    }
     if (error) {
       return <div className="error">{error}</div>;
     }
@@ -61,7 +91,7 @@ class App extends React.Component {
           <header className="header">
             <h1 className="header__header-title">GitHub User Search</h1>
           </header>
-          <Search onSubmit={this.onSearchSubmit} />
+            <Search onSubmit={this.onSearchSubmit} />
           {users.length > 0 && (
             // eslint-disable-next-line react/jsx-one-expression-per-line
             <h2 className="users-found">
@@ -73,7 +103,7 @@ GitHub users
 </h2>
           )}
 
-          <UserList users={users} />
+          {term && <UserList users={users} />}
 
           {totalNumberOfUsers && (
             <Pagination

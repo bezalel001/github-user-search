@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './style.css';
+import "./style.css";
 
-const LEFT_PAGE = 'LEFT';
-const RIGHT_PAGE = 'RIGHT';
+const LEFT_PAGE = "LEFT";
+const RIGHT_PAGE = "RIGHT";
 
 const range = (from, to, step = 1) => {
   let i = from;
@@ -30,15 +30,15 @@ class Pagination extends React.Component {
     super(props);
     const { totalRecords = null, pageLimit = 30, pageNeighbours = 0 } = props;
 
-    this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 30;
-    this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
+    this.pageLimit = typeof pageLimit === "number" ? pageLimit : 30;
+    this.totalRecords = typeof totalRecords === "number" ? totalRecords : 0;
 
     this.pageNeighbours =
-      typeof pageNeighbours === 'number'
+      typeof pageNeighbours === "number"
         ? Math.max(0, Math.min(pageNeighbours, 2))
         : 0;
-
-    this.totalPages = Math.ceil(this.totalRecords / this.pageLimit);
+    const lastPageNumber = Math.ceil(this.totalRecords / this.pageLimit);
+    this.totalPages = lastPageNumber >= 1 ? 100 : lastPageNumber % 100;
 
     this.state = { currentPage: 1 };
     console.log(`total users: ${totalRecords}`);
@@ -170,7 +170,7 @@ class Pagination extends React.Component {
                 <li
                   key={index}
                   className={`pagination__page-item${
-                    currentPage === page ? ' active' : ''
+                    currentPage === page ? " active" : ""
                   }`}
                 >
                   <button
